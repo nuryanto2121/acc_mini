@@ -1,0 +1,814 @@
+definitions:
+  models.AddUser:
+    properties:
+      email:
+        type: string
+      full_name:
+        type: string
+      handphone:
+        type: string
+      is_admin:
+        type: boolean
+      password:
+        type: string
+    type: object
+  models.LoginForm:
+    properties:
+      p:
+        type: string
+      u:
+        type: string
+    type: object
+  models.MstBarangD:
+    properties:
+      barang_cd:
+        type: string
+      barang_h_id:
+        type: integer
+      created_on:
+        type: integer
+      deleted_on:
+        type: integer
+      descs:
+        type: string
+      harga_jual:
+        type: number
+      harga_modal:
+        type: number
+      id:
+        type: integer
+      id_created:
+        type: integer
+      keuntungan:
+        type: number
+      modified_on:
+        type: integer
+    type: object
+  models.MstBarangH:
+    properties:
+      created_on:
+        type: integer
+      deleted_on:
+        type: integer
+      group_barang:
+        type: string
+      id:
+        type: integer
+      id_created:
+        type: integer
+      modified_on:
+        type: integer
+    type: object
+  models.ResetPasswd:
+    properties:
+      cp:
+        type: string
+      p:
+        type: string
+      token_email:
+        type: string
+    type: object
+  models.ResponseModelList:
+    properties:
+      data:
+        type: object
+      last_page:
+        type: integer
+      message:
+        type: string
+      page:
+        type: integer
+      total:
+        type: integer
+    type: object
+  models.TblPengeluaran:
+    properties:
+      created_on:
+        type: integer
+      deleted_on:
+        type: integer
+      descs:
+        type: string
+      id:
+        type: integer
+      id_created:
+        type: integer
+      keuntungan:
+        type: number
+      modified_on:
+        type: integer
+      tanggal:
+        type: string
+    type: object
+  models.TblTransaksi:
+    properties:
+      barang_cd:
+        type: string
+      created_on:
+        type: integer
+      deleted_on:
+        type: integer
+      harga_jual:
+        type: number
+      harga_modal:
+        type: number
+      id:
+        type: integer
+      id_created:
+        type: integer
+      keuntungan:
+        type: number
+      modified_on:
+        type: integer
+      pembeli:
+        type: string
+    type: object
+  tool.ResponseModel:
+    properties:
+      data:
+        type: object
+      message:
+        description: Code int         `json:"code"`
+        type: string
+    type: object
+info:
+  contact:
+    email: nuryantofattih@gmail.com
+    name: Nuryanto
+    url: https://www.linkedin.com/in/nuryanto-1b2721156/
+  description: Backend REST API for golang nuryanto2121
+  license: {}
+  title: Starter
+  version: "1.0"
+paths:
+  /api/auth/login:
+    post:
+      parameters:
+      - description: 'req param #changes are possible to adjust the form of the registration
+          form from frontend'
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginForm'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      summary: Login
+      tags:
+      - Auth
+  /api/auth/reset:
+    post:
+      parameters:
+      - description: 'req param #changes are possible to adjust the form of the registration
+          form from frontend'
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/models.ResetPasswd'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      summary: Reset Password
+      tags:
+      - Auth
+  /api/barangd:
+    delete:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete BarangD
+      tags:
+      - BarangD
+    get:
+      parameters:
+      - description: Page
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: PerPage
+        in: query
+        name: perpage
+        required: true
+        type: integer
+      - description: Search
+        in: query
+        name: search
+        type: string
+      - description: InitSearch
+        in: query
+        name: initsearch
+        type: string
+      - description: SortField
+        in: query
+        name: sortfield
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseModelList'
+      security:
+      - ApiKeyAuth: []
+      summary: GetList BarangD
+      tags:
+      - BarangD
+    post:
+      parameters:
+      - description: 'req param #changes are possible to adjust the form of the registration
+          form from frontend'
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/models.MstBarangD'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Add BarangD
+      tags:
+      - BarangD
+  /api/barangd/{id}:
+    get:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: GetById
+      tags:
+      - BarangD
+    put:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 'req param #changes are possible to adjust the form of the registration
+          form from frontend'
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/models.MstBarangD'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Update BarangD
+      tags:
+      - BarangD
+  /api/barangh:
+    delete:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete BarangH
+      tags:
+      - BarangH
+    get:
+      parameters:
+      - description: Page
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: PerPage
+        in: query
+        name: perpage
+        required: true
+        type: integer
+      - description: Search
+        in: query
+        name: search
+        type: string
+      - description: InitSearch
+        in: query
+        name: initsearch
+        type: string
+      - description: SortField
+        in: query
+        name: sortfield
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseModelList'
+      security:
+      - ApiKeyAuth: []
+      summary: GetList BarangH
+      tags:
+      - BarangH
+    post:
+      parameters:
+      - description: 'req param #changes are possible to adjust the form of the registration
+          form from frontend'
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/models.MstBarangH'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Add BarangH
+      tags:
+      - BarangH
+  /api/barangh/{id}:
+    get:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      summary: GetById
+      tags:
+      - BarangH
+    put:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 'req param #changes are possible to adjust the form of the registration
+          form from frontend'
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/models.MstBarangH'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Update BarangH
+      tags:
+      - BarangH
+  /api/pengeluaran:
+    delete:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete Pengeluaran
+      tags:
+      - Pengeluaran
+    get:
+      parameters:
+      - description: Page
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: PerPage
+        in: query
+        name: perpage
+        required: true
+        type: integer
+      - description: Search
+        in: query
+        name: search
+        type: string
+      - description: InitSearch
+        in: query
+        name: initsearch
+        type: string
+      - description: SortField
+        in: query
+        name: sortfield
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseModelList'
+      security:
+      - ApiKeyAuth: []
+      summary: GetList Pengeluaran
+      tags:
+      - Pengeluaran
+    post:
+      parameters:
+      - description: 'req param #changes are possible to adjust the form of the registration
+          form from frontend'
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/models.TblPengeluaran'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Add Pengeluaran
+      tags:
+      - Pengeluaran
+  /api/pengeluaran/{id}:
+    get:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: GetById
+      tags:
+      - Pengeluaran
+    put:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 'req param #changes are possible to adjust the form of the registration
+          form from frontend'
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/models.TblPengeluaran'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Update Pengeluaran
+      tags:
+      - Pengeluaran
+  /api/transaksi:
+    delete:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete Transaksi
+      tags:
+      - Transaksi
+    get:
+      parameters:
+      - description: Page
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: PerPage
+        in: query
+        name: perpage
+        required: true
+        type: integer
+      - description: Search
+        in: query
+        name: search
+        type: string
+      - description: InitSearch
+        in: query
+        name: initsearch
+        type: string
+      - description: SortField
+        in: query
+        name: sortfield
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseModelList'
+      security:
+      - ApiKeyAuth: []
+      summary: GetList Transaksi
+      tags:
+      - Transaksi
+    post:
+      parameters:
+      - description: 'req param #changes are possible to adjust the form of the registration
+          form from frontend'
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/models.TblTransaksi'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Add Transaksi
+      tags:
+      - Transaksi
+  /api/transaksi/{id}:
+    get:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: GetById
+      tags:
+      - Transaksi
+    put:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 'req param #changes are possible to adjust the form of the registration
+          form from frontend'
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/models.TblTransaksi'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Update Transaksi
+      tags:
+      - Transaksi
+  /api/user:
+    delete:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete User
+      tags:
+      - User
+    get:
+      parameters:
+      - description: Page
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: PerPage
+        in: query
+        name: perpage
+        required: true
+        type: integer
+      - description: Search
+        in: query
+        name: search
+        type: string
+      - description: InitSearch
+        in: query
+        name: initsearch
+        type: string
+      - description: SortField
+        in: query
+        name: sortfield
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseModelList'
+      security:
+      - ApiKeyAuth: []
+      summary: GetList User
+      tags:
+      - User
+    post:
+      parameters:
+      - description: 'req param #changes are possible to adjust the form of the registration
+          form from frontend'
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/models.AddUser'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Add User
+      tags:
+      - User
+  /api/user/{id}:
+    get:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: GetById
+      tags:
+      - User
+    put:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 'req param #changes are possible to adjust the form of the registration
+          form from frontend'
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/models.AddUser'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Update User
+      tags:
+      - User
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

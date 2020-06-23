@@ -1,4 +1,2 @@
-# acc_mini
-Rest API echo Golang
-
-CRUD echo golang clean arsitecture.
+# EchoGoCukurIn
+Rest API Golang echo For Cukur-In Apps
